@@ -82,6 +82,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+
 // Common dependencies
 #include <AP_Common.h>
 #include <AP_Progmem.h>
@@ -196,6 +197,10 @@ const AP_HAL::HAL& hal = AP_HAL_BOARD_DRIVER;
 // Global parameters are all contained within the 'g' class.
 //
 static Parameters g;
+
+// ADDED GLOBAL VARS
+static unsigned char selector = 0x35;
+static unsigned char bit=1;
 
 // main loop scheduler
 static AP_Scheduler scheduler;
@@ -844,6 +849,7 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
  */
 static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
     { rc_loop,               1,     100 },
+    { bit_shit,              4,     100 }, // added 04/13/17 may or may not work
     { throttle_loop,         2,     450 },
     { update_GPS,            2,     900 },
     { update_batt_compass,  10,     720 },
@@ -1019,6 +1025,22 @@ static void rc_loop()
     // -----------------------------------------
     read_radio();
     read_control_switch();
+}
+
+static void bit_shit()
+{
+	if( selector & bit) {
+		fprintf(stdout, "ON\n");
+        ExternalLED::motor_led2(true);
+	} else {	
+		fprintf(stdout, "OFF\n");
+        ExternalLED::motor_led2(false);
+	}
+	if (bit == 0x80) {
+		bit = 0x01;
+	} else {
+		bit = bit<<0x01;
+	}
 }
 
 // throttle_loop - should be run at 50 hz

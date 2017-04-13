@@ -158,18 +158,18 @@ void ExternalLED::update(void)
                     case 7:
                     case 9:
                         motor_led1(true);
-                        motor_led2(true);
+                        //motor_led2(true);
                         break;
                     case 2:
                     case 4:
                     case 6:
                     case 8:
                         motor_led1(false);
-                        motor_led2(false);
+                        //motor_led2(false);
                         break;
                     case 10:
                         motor_led1(false);
-                        motor_led2(false);
+                        //motor_led2(false);
                         set_pattern(NONE);
                         break;
                 }
@@ -178,11 +178,11 @@ void ExternalLED::update(void)
                 switch(_pattern_counter) {
                     case 1:
                         motor_led1(true);
-                        motor_led2(false);
+                        //motor_led2(false);
                         break;
                     case 4:
                         motor_led1(false);
-                        motor_led2(true);
+                        //motor_led2(true);
                         break;
                     case 6:
                         set_pattern(NONE);
@@ -242,8 +242,8 @@ void ExternalLED::motor_led1(bool on_off)
 // motor_led - set motor light on or off
 void ExternalLED::motor_led2(bool on_off)
 {
-    if (_flags.motorled2_on != on_off) {
+    //if (_flags.motorled2_on != on_off) {
         _flags.motorled2_on = on_off;
         hal.gpio->write(EXTERNAL_LED_MOTOR2, _flags.motorled2_on);
-    }
+    //}
 }
