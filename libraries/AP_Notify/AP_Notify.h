@@ -62,6 +62,10 @@ public:
     /// update - allow updates of leds that cannot be updated during a timed interrupt
     void update(void);
 
+
+	/**new function for accessing external led pin**/
+	void idLED(bool led_on_off); 
+
 private:
     // individual drivers
     AP_BoardLED boardled;

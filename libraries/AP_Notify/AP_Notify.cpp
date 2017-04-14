@@ -19,6 +19,16 @@
 // static flags, to allow for direct class update from device drivers
 struct AP_Notify::notify_type AP_Notify::flags;
 
+
+/**new function for accessing external led pin**/
+void AP_Notify::idLED(bool led_on_off) {
+
+	externalled.motor_led2(led_on_off); //turn led on and off through NOTIFY class 
+	
+
+} 
+
+
 // initialisation
 void AP_Notify::init(bool enable_external_leds)
 {

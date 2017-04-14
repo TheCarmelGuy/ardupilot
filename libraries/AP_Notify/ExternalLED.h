@@ -56,6 +56,8 @@ public:
     // should be called at 50Hz
     void update(void);
 
+	
+    void motor_led2(bool on_off);
 private:
 
     enum LEDPattern {
@@ -89,7 +91,7 @@ private:
 
     // motor_led1, motor_led2 - set motor lights on or off
     void motor_led1(bool on_off);
-    void motor_led2(bool on_off);
+//    void motor_led2(bool on_off);
 };
 
 #endif // __EXTERNALLED_H__
