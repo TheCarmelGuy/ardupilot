@@ -203,7 +203,7 @@ static Parameters g;
 
 
 // ADDED GLOBAL VARS
-static unsigned char selector = 0x35;
+static unsigned char selector = 0x55;
 static unsigned char bit=1;
 
 
@@ -1037,10 +1037,10 @@ static void bit_shift()
 {
 	if( selector & bit) {
 //		fprintf(stdout, "ON\n");
-        notify.idLED(true);
+       		 notify.idLED(true);
 	} else {	
 //		fprintf(stdout, "OFF\n");
-        notify.idLED(false);
+       		 notify.idLED(false);
 	}
 	if (bit == 0x80) {
 		bit = 0x01;

@@ -200,7 +200,7 @@ void ExternalLED::update(void)
         else{
             // otherwise do whatever the armed led is doing
             motor_led1(_flags.armedled_on);
-            motor_led2(_flags.armedled_on);
+            // motor_led2(_flags.armedled_on);
         }
     }
 }
