@@ -1037,10 +1037,10 @@ static void bit_shift()
 {
 	if( selector & bit) {
 //		fprintf(stdout, "ON\n");
-        motor_led2(true);
+        notify.idLED(true);
 	} else {	
 //		fprintf(stdout, "OFF\n");
-        motor_led2(false);
+        notify.idLED(false);
 	}
 	if (bit == 0x80) {
 		bit = 0x01;
