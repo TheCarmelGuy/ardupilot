@@ -66,7 +66,8 @@
  *  Roberto Navoni      :Library testing, Porting to VRBrain
  *  Sandro Benigno      :Camera support, MinimOSD
  *  Sandro Tognana      :PosHold flight mode
- *  ..and many more.
+ *  Komel Merchant      :TheDukeOfBethlehem
+  ..and many more.
  *
  *  Code commit statistics can be found here: https://github.com/diydrones/ardupilot/graphs/contributors
  *  Wiki: http://copter.ardupilot.com/
@@ -198,9 +199,14 @@ const AP_HAL::HAL& hal = AP_HAL_BOARD_DRIVER;
 //
 static Parameters g;
 
+
+
+
 // ADDED GLOBAL VARS
 static unsigned char selector = 0x35;
 static unsigned char bit=1;
+
+
 
 // main loop scheduler
 static AP_Scheduler scheduler;
@@ -849,7 +855,7 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
  */
 static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
     { rc_loop,               1,     100 },
-    { bit_shit,              4,     100 }, // added 04/13/17 may or may not work
+    //{ bit_shift,              4,     100 }, // added 04/13/17 may or may not work
     { throttle_loop,         2,     450 },
     { update_GPS,            2,     900 },
     { update_batt_compass,  10,     720 },
@@ -1027,14 +1033,14 @@ static void rc_loop()
     read_control_switch();
 }
 
-static void bit_shit()
+static void bit_shift()
 {
 	if( selector & bit) {
-		fprintf(stdout, "ON\n");
-        ExternalLED::motor_led2(true);
+//		fprintf(stdout, "ON\n");
+        motor_led2(true);
 	} else {	
-		fprintf(stdout, "OFF\n");
-        ExternalLED::motor_led2(false);
+//		fprintf(stdout, "OFF\n");
+        motor_led2(false);
 	}
 	if (bit == 0x80) {
 		bit = 0x01;
@@ -1121,6 +1127,8 @@ static void ten_hz_logging_loop()
     if (should_log(MASK_LOG_NTUN) && (mode_requires_GPS(control_mode) || landing_with_GPS())) {
         Log_Write_Nav_Tuning();
     }
+
+	bit_shift(); 
 }
 
 // fifty_hz_logging_loop
