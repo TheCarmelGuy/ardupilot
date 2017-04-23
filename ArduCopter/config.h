@@ -196,6 +196,12 @@
 #elif CONFIG_HAL_BOARD == HAL_BOARD_VRBRAIN
 #endif
 
+#ifndef HEX_LED_FREQ
+ # define HEX_LED_FREQ 10
+#endif
+#ifndef HEX_LED_PATTERN
+ # define HEX_LED_PATTERN 55
+#endif
 //////////////////////////////////////////////////////////////////////////////
 // Barometer
 //

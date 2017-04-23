@@ -359,6 +359,20 @@ const AP_Param::Info var_info[] PROGMEM = {
     // @User: Standard
     GSCALAR(log_bitmask,    "LOG_BITMASK",          DEFAULT_LOG_BITMASK),
 
+    // @Param: HEX_LED_FREQ
+    // @DisplayName: Hex LED Freq
+    // @Description: LED blink at the certain freq for motion capture camera
+    // @Values: Below 30Hz
+    // @User: Standard
+    GSCALAR(hex_led_freq, "HEX_LED_FREQ", 10),
+
+    // @Param: HEX_LED_PATTERN
+    // @DisplayName: Hex LED Pattern
+    // @Description: LED blink at the certain pattern (0x55) for motion capture camera
+    // @Values: Two hex numbers
+    // @User: Standard
+    GSCALAR(hex_led_pattern, "HEX_LED_PATTERN", 55),
+    
     // @Param: ESC
     // @DisplayName: ESC Calibration
     // @Description: Controls whether ArduCopter will enter ESC calibration on the next restart.  Do not adjust this parameter manually.

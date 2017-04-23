@@ -125,6 +125,10 @@ public:
         k_param_dcmcheck_thresh,        // 59
         k_param_log_bitmask,
 
+        k_param_hex_led_freq,               // April 23, 2017 hex_led
+                                            // 61
+        k_param_hex_led_pattern,            // 62
+
         // 65: AP_Limits Library
         k_param_limits = 65,            // deprecated - remove
         k_param_gpslock_limit,          // deprecated - remove
@@ -396,6 +400,8 @@ public:
     AP_Int8         land_repositioning;
     AP_Float        ekfcheck_thresh;
     AP_Float        dcmcheck_thresh;
+    AP_Int8         hex_led_freq;                    // April 23, 2017
+    AP_Int8         hex_led_pattern;                 // April 23, 2017   
 
 #if FRAME_CONFIG ==     HELI_FRAME
     // Heli
