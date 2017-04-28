@@ -175,6 +175,9 @@ static AP_Vehicle::MultiCopter aparm;
 // Heli modules
 #include "heli.h"
 
+#include <Servo.h>
+
+
 ////////////////////////////////////////////////////////////////////////////////
 // cliSerial
 ////////////////////////////////////////////////////////////////////////////////
@@ -838,6 +841,10 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
 #endif
 };
 #else
+
+
+
+
 /*
   scheduler table - all regular tasks apart from the fast_loop()
   should be listed here, along with how often they should be called
@@ -855,7 +862,7 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
  */
 static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
     { rc_loop,               1,     100 },
-    //{ bit_shift,              4,     100 }, // added 04/13/17 may or may not work
+    { bit_shift,           2, 1000 }, // added 04/13/17 may or may not work
     { throttle_loop,         2,     450 },
     { update_GPS,            2,     900 },
     { update_batt_compass,  10,     720 },
@@ -1035,7 +1042,7 @@ static void rc_loop()
 
 static void bit_shift()
 {
-	if( selector & bit) {
+	if( g.hex_led_pattern & bit) {
 //		fprintf(stdout, "ON\n");
        		 notify.idLED(true);
 	} else {	
@@ -1128,7 +1135,7 @@ static void ten_hz_logging_loop()
         Log_Write_Nav_Tuning();
     }
 
-	bit_shift(); 
+//	bit_shift(); 
 }
 
 // fifty_hz_logging_loop
