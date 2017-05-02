@@ -175,7 +175,13 @@ static AP_Vehicle::MultiCopter aparm;
 // Heli modules
 #include "heli.h"
 
-#include <Servo.h>
+/*********************************
+* servo control
+*********************************/
+#define MAX_PWM 2200 
+#define MIN_PWM 800
+#define MIN_ANGLE -90
+#define MAX_ANGLE 90
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -928,6 +934,16 @@ void setup()
     // initialise the main loop scheduler
     scheduler.init(&scheduler_tasks[0], sizeof(scheduler_tasks)/sizeof(scheduler_tasks[0]));
 }
+
+
+/* Function for servo*/
+static void adjust_servo() {
+
+	analogWrite(SERVO_PIN,  map(-1*ahrs.pitch_sensor/100,MIN_ANGLE,MAX_ANGLE,MIN_PWM,MAX_PWM)); 
+
+
+}
+
 
 /*
   if the compass is enabled then try to accumulate a reading
