@@ -182,7 +182,7 @@ static AP_Vehicle::MultiCopter aparm;
 #define MIN_PWM 800
 #define MIN_ANGLE -90
 #define MAX_ANGLE 90
-
+#define SERVO_PIN 8
 
 ////////////////////////////////////////////////////////////////////////////////
 // cliSerial
@@ -939,8 +939,8 @@ void setup()
 /* Function for servo*/
 static void adjust_servo() {
 
-	analogWrite(SERVO_PIN,  map(-1*ahrs.pitch_sensor/100,MIN_ANGLE,MAX_ANGLE,MIN_PWM,MAX_PWM)); 
-
+	hal.rcout->write(SERVO_PIN, -1*(0.0389*ahrs.pitch_sensor + 1500));  
+	
 
 }
 
