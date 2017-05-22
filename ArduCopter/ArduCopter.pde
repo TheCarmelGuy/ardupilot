@@ -175,15 +175,6 @@ static AP_Vehicle::MultiCopter aparm;
 // Heli modules
 #include "heli.h"
 
-/*********************************
-* servo control
-*********************************/
-#define MAX_PWM 2200 
-#define MIN_PWM 800
-#define MIN_ANGLE -90
-#define MAX_ANGLE 90
-#define SERVO_PIN 8
-
 ////////////////////////////////////////////////////////////////////////////////
 // cliSerial
 ////////////////////////////////////////////////////////////////////////////////
@@ -868,7 +859,8 @@ static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
  */
 static const AP_Scheduler::Task scheduler_tasks[] PROGMEM = {
     { rc_loop,               1,     100 },
-    { bit_shift,           2, 1000 }, // added 04/13/17 may or may not work
+    { bit_shift,               2, 1000  }, // added 04/13/17 may or may not work
+    { adjust_servo, 	    2,   100   },
     { throttle_loop,         2,     450 },
     { update_GPS,            2,     900 },
     { update_batt_compass,  10,     720 },
@@ -923,13 +915,18 @@ void setup()
 {
     cliSerial = hal.console;
 
-    // Load the default values of variables listed in var_info[]s
+ 	
+     hal.rcout->enable_ch(7);
+    
+   // Load the default values of variables listed in var_info[]s
     AP_Param::setup_sketch_defaults();
 
     // setup storage layout for copter
     StorageManager::set_layout_copter();
 
     init_ardupilot();
+
+
 
     // initialise the main loop scheduler
     scheduler.init(&scheduler_tasks[0], sizeof(scheduler_tasks)/sizeof(scheduler_tasks[0]));
@@ -939,8 +936,8 @@ void setup()
 /* Function for servo*/
 static void adjust_servo() {
 
-	hal.rcout->write(SERVO_PIN, -1*(0.0389*ahrs.pitch_sensor + 1500));  
-	
+	hal.rcout->write(7, 0.1112*abs(ahrs.pitch_sensor) + 1000);  
+        cliSerial->printf_P(PSTR("sensor: %u \n"), ahrs.pitch_sensor);
 
 }
 
